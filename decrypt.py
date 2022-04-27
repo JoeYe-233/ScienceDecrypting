@@ -361,25 +361,21 @@ def decrypt_file(src, dest):
 
 
 def main():
+    options = {'src':sys.argv[1],'dst':sys.argv[1][:-4]+' 已解密.pdf'}
     parser = OptionParser(
-        usage="Usage: python3 %prog -i INPUT_FILE -o OUTPUT_FILE")
-    parser.add_option("-i", "--input", dest="src",
-                      help="原始文件名", metavar="FILE")
-    parser.add_option("-o", "--ouput", dest="dst",
-                      help="输出文件名", metavar="FILE")
-    (options, _) = parser.parse_args()
-    if not options.src or not options.dst:
+        usage="Usage: python3 %prog INPUT_FILE")
+    if not options['src'] or not options['dst']:
         parser.print_help()
         exit(0)
-    if not os.path.isfile(options.src):
+    if not os.path.isfile(options["src"]):
         print("输入文件不存在")
         parser.print_help()
         exit(0)
-    if os.path.isfile(options.dst):
-        ans = input("文件 {} 已存在，继续运行将覆盖该文件，是否继续 [y/N]: ".format(options.dst))
+    if os.path.isfile(options["dst"]):
+        ans = input("文件 {} 已存在，继续运行将覆盖该文件，是否继续 [y/N]: ".format(options["dst"]))
         if ans.lower() not in ["y", "yes"]:
             exit(0)
-    decrypt_file(options.src, options.dst)
+    decrypt_file(options['src'], options['dst'])
 
 
 if __name__ == "__main__":
